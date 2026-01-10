@@ -1,0 +1,70 @@
+############################################
+### MÉDICOS — API SANIDAD
+############################################
+
+### GET /api/medicos — Recupera todos los médicos
+GET http://localhost:3000/api/medicos
+
+
+### GET /api/medicos/listado — Listado reducido (id, nombre, especialidad)
+GET http://localhost:3000/api/medicos/listado
+
+
+### GET /api/medicos/:id — Recupera un médico por ID
+GET http://localhost:3000/api/medicos/1
+
+
+### GET /api/medicos/:id — NOT FOUND (404)
+GET http://localhost:3000/api/medicos/999
+
+
+### GET /api/medicos/:id/relations — Médico + sus pacientes (1:N)
+GET http://localhost:3000/api/medicos/1/relations
+
+
+### POST /api/medicos — Crear un médico
+POST http://localhost:3000/api/medicos
+Content-Type: application/json
+
+{
+  "nombre": "Dr. Francisco",
+  "especialidad": "Cardiología"
+}
+
+
+### POST /api/medicos — Ejemplo 2
+POST http://localhost:3000/api/medicos
+Content-Type: application/json
+
+{
+  "nombre": "Dra. María López",
+  "especialidad": "Pediatría"
+}
+
+
+### PUT /api/medicos/:id — Actualizar un médico
+PUT http://localhost:3000/api/medicos/1
+Content-Type: application/json
+
+{
+  "nombre": "Dr. Francisco Actualizado",
+  "especialidad": "Cardiología Intervencionista"
+}
+
+
+### PUT /api/medicos/:id — NOT FOUND (404)
+PUT http://localhost:3000/api/medicos/999
+Content-Type: application/json
+
+{
+  "nombre": "No existe",
+  "especialidad": "Ninguna"
+}
+
+
+### DELETE /api/medicos/:id — Eliminar un médico
+DELETE http://localhost:3000/api/medicos/1
+
+
+### DELETE /api/medicos/:id — NOT FOUND (404)
+DELETE http://localhost:3000/api/medicos/999
