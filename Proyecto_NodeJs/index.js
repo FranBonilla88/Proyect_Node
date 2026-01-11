@@ -5,8 +5,8 @@ const express = require('express');
 const cors = require('cors');
 
 // Rutas
-const medicoRoutes = require('./routes/medicoRoutes');
-const pacienteRoutes = require('./routes/pacienteRoutes');
+const doctorRoutes = require('./routes/doctorRoutes');
+const patientRoutes = require('./routes/patientRoutes');
 
 // ============================================
 // INICIALIZACIÓN
@@ -23,8 +23,12 @@ app.use(cors());
 // ============================================
 // RUTAS - API REST
 // ============================================
-app.use('/api/medicos', medicoRoutes);
-app.use('/api/pacientes', pacienteRoutes);
+app.use('/api/doctors', doctorRoutes);
+app.use('/api/patients', patientRoutes);
+// RUTAS RAIZ (opcional)
+app.get('/', (req, res) => {
+    res.send('API REST funcionando correctamente');
+});
 
 // ============================================
 // SERVIDOR

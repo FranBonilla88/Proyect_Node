@@ -1,23 +1,23 @@
-const medicoService = require('../services/medicoService');
+const doctorService = require('../services/doctorService');
 const { logMensaje } = require('../utils/logger');
 const Respuesta = require('../utils/respuesta');
 
-class MedicoController {
+class DoctorController {
 
     // GET /medicos
-    async getAllMedicos(req, res) {
+    async getAllDoctors(req, res) {
         const { listado } = req.query;
 
         try {
             if (listado) {
                 // Devuelve un listado simple (por ejemplo para selects)
-                const data = await medicoService.getAllMedicoListado();
+                const data = await doctorService.getAllDoctorListSimple();
                 return res.json(
                     Respuesta.exito(data, 'Listado de médicos recuperado')
                 );
             } else {
                 // Devuelve todos los datos del médico
-                const data = await medicoService.getAllMedico();
+                const data = await doctorService.getAllDoctors();
                 return res.json(
                     Respuesta.exito(data, 'Datos de médicos recuperados')
                 );
@@ -34,37 +34,37 @@ class MedicoController {
 
     // GET /medicos/:id
     // GET /medicos/:id?relations=true
-    async getMedicoById(req, res) {
+    async getDoctorById(req, res) {
         const { relations } = req.query;
-        const medicoId = req.params.id;
+        const doctorId = req.params.id;
 
         try {
             if (relations) {
                 // Médico + pacientes
-                const medico = await medicoService.getMedicoByIdRelations(medicoId);
+                const doctor = await doctorService.getDoctorByIdRelations(doctorId);
 
-                if (!medico) {
-                    logMensaje('Médico no encontrado: ' + medicoId);
+                if (!doctor) {
+                    logMensaje('Médico no encontrado: ' + doctorId);
                     return res.status(404).json(
-                        Respuesta.error(null, 'Médico no encontrado: ' + medicoId)
+                        Respuesta.error(null, 'Médico no encontrado: ' + doctorId)
                     );
                 }
 
                 return res.json(
-                    Respuesta.exito(medico, 'Médico recuperado con pacientes')
+                    Respuesta.exito(doctor, 'Médico recuperado con pacientes')
                 );
             } else {
                 // Solo médico
-                const medico = await medicoService.getMedicoById(medicoId);
+                const doctor = await doctorService.getDoctorById(doctorId);
 
-                if (!medico) {
+                if (!doctor) {
                     return res.status(404).json(
-                        Respuesta.error(null, 'Médico no encontrado: ' + medicoId)
+                        Respuesta.error(null, 'Médico no encontrado: ' + doctorId)
                     );
                 }
 
                 return res.json(
-                    Respuesta.exito(medico, 'Médico recuperado')
+                    Respuesta.exito(doctor, 'Médico recuperado')
                 );
             }
         } catch (err) {
@@ -78,11 +78,11 @@ class MedicoController {
     }
 
     // POST /medicos
-    async createMedico(req, res) {
-        const medicoData = req.body;
+    async createDoctor(req, res) {
+        const doctorData = req.body;
 
         try {
-            const result = await medicoService.createMedico(medicoData);
+            const result = await doctorService.createDoctor(doctorData);
 
             return res.status(201).json(
                 Respuesta.exito(
@@ -101,12 +101,12 @@ class MedicoController {
     }
 
     // PUT /medicos/:id
-    async updateMedico(req, res) {
+    async updateDoctor(req, res) {
         const id = req.params.id;
-        const medicoData = req.body;
+        const doctorData = req.body;
 
         try {
-            const result = await medicoService.updateMedico(id, medicoData);
+            const result = await doctorService.updateDoctor(id, doctorData);
 
             if (!result || result.affectedRows === 0) {
                 return res.status(404).json(
@@ -125,17 +125,17 @@ class MedicoController {
     }
 
     // DELETE /medicos/:id
-    async deleteMedico(req, res) {
-        const medicoId = req.params.id;
+    async deleteDoctor(req, res) {
+        const doctorId = req.params.id;
 
         try {
-            const result = await medicoService.deleteMedico(medicoId);
+            const result = await doctorService.deleteDoctor(doctorId);
 
             if (!result || result.affectedRows === 0) {
                 return res.status(404).json(
                     Respuesta.error(
                         null,
-                        `Médico con id ${medicoId} no encontrado`
+                        `Médico con id ${doctorId} no encontrado`
                     )
                 );
             }
@@ -151,4 +151,4 @@ class MedicoController {
     }
 }
 
-module.exports = new MedicoController();
+module.exports = new DoctorController();

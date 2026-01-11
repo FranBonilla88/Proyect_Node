@@ -1,13 +1,14 @@
-const pacienteService = require('../services/pacienteService');
+const patientService = require('../services/patientService');
 const { logMensaje } = require('../utils/logger');
 const Respuesta = require('../utils/respuesta');
 
-class PacienteController {
+class PatientController {
 
-    // GET /pacientes
-    async getAllPaciente(req, res) {
+    // GET /patients
+    async getAllPatients(req, res) {
         try {
-            const data = await pacienteService.getAllPaciente();
+            // Recuperar todos los pacientes
+            const data = await patientService.getAllPatients();
             return res.json(
                 Respuesta.exito(data, 'Listado de pacientes recuperado')
             );
@@ -21,16 +22,15 @@ class PacienteController {
         }
     }
 
-    // GET /pacientes/:id
-    // GET /pacientes/:id?relations=true
-    async getPacienteById(req, res) {
+    // GET /patients/:id
+    async getPatientById(req, res) {
         const id = req.params.id;
         const { relations } = req.query;
 
         try {
             if (relations) {
                 // Paciente + su médico
-                const data = await pacienteService.getPacienteByIdRelations(id);
+                const data = await patientService.getPatientByIdRelations(id);
 
                 if (!data || (Array.isArray(data) && data.length === 0)) {
                     return res.status(404).json(
@@ -46,7 +46,7 @@ class PacienteController {
                 );
             } else {
                 // Solo paciente
-                const data = await pacienteService.getPacienteById(id);
+                const data = await patientService.getPatientById(id);
 
                 if (!data || (Array.isArray(data) && data.length === 0)) {
                     return res.status(404).json(
@@ -71,12 +71,13 @@ class PacienteController {
         }
     }
 
-    // POST /pacientes
-    async createPaciente(req, res) {
-        const pacienteData = req.body;
+    // POST /patients
+    async createPatient(req, res) {
+        const patientData = req.body;
 
         try {
-            const result = await pacienteService.createPaciente(pacienteData);
+            // Crear un nuevo paciente
+            const result = await patientService.createPatient(patientData);
 
             return res.status(201).json(
                 Respuesta.exito(
@@ -94,13 +95,14 @@ class PacienteController {
         }
     }
 
-    // PUT /pacientes/:id
-    async updatePaciente(req, res) {
+    // PUT /patients/:id
+    async updatePatient(req, res) {
         const id = req.params.id;
-        const pacienteData = req.body;
+        const patientData = req.body;
 
         try {
-            const result = await pacienteService.updatePaciente(id, pacienteData);
+            // Actualizar paciente existente
+            const result = await patientService.updatePatient(id, patientData);
 
             if (result.affectedRows === 0) {
                 return res.status(404).json(
@@ -124,12 +126,13 @@ class PacienteController {
         }
     }
 
-    // DELETE /pacientes/:id
-    async deletePaciente(req, res) {
+    // DELETE /patients/:id
+    async deletePatient(req, res) {
         const id = req.params.id;
 
         try {
-            const result = await pacienteService.deletePaciente(id);
+            // Eliminar paciente
+            const result = await patientService.deletePatient(id);
 
             if (result.affectedRows === 0) {
                 return res.status(404).json(
@@ -154,4 +157,4 @@ class PacienteController {
     }
 }
 
-module.exports = new PacienteController();
+module.exports = new PatientController();

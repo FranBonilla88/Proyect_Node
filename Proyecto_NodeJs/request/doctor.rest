@@ -1,0 +1,93 @@
+############################################
+### DOCTORES — API SANIDAD
+############################################
+
+### GET /api/doctors — Recupera todos los doctores
+# Ejemplo: Obtiene el listado completo de doctores con todos sus campos
+GET http://localhost:3000/api/doctors
+
+
+### GET /api/doctors?listado=true — Listado reducido (id, name, specialty)
+# Ejemplo: Devuelve solo los datos básicos para un <select> o listados simples
+GET http://localhost:3000/api/doctors?listado=true
+
+
+### GET /api/doctors/:id — Recupera un doctor por ID
+# Ejemplo: Obtiene un doctor concreto por su ID
+GET http://localhost:3000/api/doctors/1
+
+
+### GET /api/doctors/:id — NOT FOUND (404)
+# Ejemplo: Prueba de error cuando el doctor no existe
+GET http://localhost:3000/api/doctors/999
+
+
+### GET /api/doctors/:id?relations=true — Doctor + sus pacientes (1:N)
+# Ejemplo: Recupera un doctor junto con todos sus pacientes asociados
+GET http://localhost:3000/api/doctors/1?relations=true
+
+
+### POST /api/doctors — Crear un doctor
+# Ejemplo: Inserta un nuevo doctor en la base de datos
+POST http://localhost:3000/api/doctors
+Content-Type: application/json
+
+{
+  "name": "Dr. Francisco",
+  "surname": "Gómez",
+  "specialty": "Cardiology",
+  "email": "francisco@example.com",
+  "phone": "600123456"
+}
+
+
+### POST /api/doctors — Ejemplo 2
+# Ejemplo: Inserta otro doctor con datos diferentes
+POST http://localhost:3000/api/doctors
+Content-Type: application/json
+
+{
+  "name": "Dra. María",
+  "surname": "López",
+  "specialty": "Pediatrics",
+  "email": "maria@example.com",
+  "phone": "600987654"
+}
+
+
+### PUT /api/doctors/:id — Actualizar un doctor
+# Ejemplo: Actualiza los datos del doctor con ID 1
+PUT http://localhost:3000/api/doctors/1
+Content-Type: application/json
+
+{
+  "name": "Dr. Francisco Actualizado",
+  "surname": "Gómez",
+  "specialty": "Interventional Cardiology",
+  "email": "francisco.updated@example.com",
+  "phone": "600111222"
+}
+
+
+### PUT /api/doctors/:id — NOT FOUND (404)
+# Ejemplo: Prueba de actualización fallida porque el doctor no existe
+PUT http://localhost:3000/api/doctors/999
+Content-Type: application/json
+
+{
+  "name": "No existe",
+  "surname": "Ninguno",
+  "specialty": "Ninguna",
+  "email": "no@existe.com",
+  "phone": "000000000"
+}
+
+
+### DELETE /api/doctors/:id — Eliminar un doctor
+# Ejemplo: Elimina el doctor con ID 1
+DELETE http://localhost:3000/api/doctors/1
+
+
+### DELETE /api/doctors/:id — NOT FOUND (404)
+# Ejemplo: Prueba de eliminación fallida porque el doctor no existe
+DELETE http://localhost:3000/api/doctors/999
