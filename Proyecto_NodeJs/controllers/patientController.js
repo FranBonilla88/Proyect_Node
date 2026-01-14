@@ -7,7 +7,6 @@ class PatientController {
     // GET /patients
     async getAllPatients(req, res) {
         try {
-            // Recuperar todos los pacientes
             const data = await patientService.getAllPatients();
             return res.json(
                 Respuesta.exito(data, 'Listado de pacientes recuperado')
@@ -28,39 +27,31 @@ class PatientController {
         const { relations } = req.query;
 
         try {
+            let patient;
+
             if (relations) {
                 // Paciente + su médico
-                const data = await patientService.getPatientByIdRelations(id);
-
-                if (!data || (Array.isArray(data) && data.length === 0)) {
-                    return res.status(404).json(
-                        Respuesta.error(null, `Paciente con id ${id} no encontrado`)
-                    );
-                }
-
-                return res.json(
-                    Respuesta.exito(
-                        data,
-                        'Paciente recuperado con su médico'
-                    )
-                );
+                patient = await patientService.getPatientByIdRelations(id);
             } else {
                 // Solo paciente
-                const data = await patientService.getPatientById(id);
+                patient = await patientService.getPatientById(id);
+            }
 
-                if (!data || (Array.isArray(data) && data.length === 0)) {
-                    return res.status(404).json(
-                        Respuesta.error(null, `Paciente con id ${id} no encontrado`)
-                    );
-                }
-
-                return res.json(
-                    Respuesta.exito(
-                        data[0] || data,
-                        'Paciente recuperado'
-                    )
+            if (!patient) {
+                return res.status(404).json(
+                    Respuesta.error(null, `Paciente con id ${id} no encontrado`)
                 );
             }
+
+            return res.json(
+                Respuesta.exito(
+                    patient,
+                    relations
+                        ? 'Paciente recuperado con su médico'
+                        : 'Paciente recuperado'
+                )
+            );
+
         } catch (err) {
             return res.status(500).json(
                 Respuesta.error(
@@ -76,12 +67,12 @@ class PatientController {
         const patientData = req.body;
 
         try {
-            // Crear un nuevo paciente
-            const result = await patientService.createPatient(patientData);
+            // Sequelize devuelve el objeto creado
+            const patient = await patientService.createPatient(patientData);
 
             return res.status(201).json(
                 Respuesta.exito(
-                    { insertId: result.insertId },
+                    patient,
                     'Paciente creado correctamente'
                 )
             );
@@ -101,10 +92,10 @@ class PatientController {
         const patientData = req.body;
 
         try {
-            // Actualizar paciente existente
-            const result = await patientService.updatePatient(id, patientData);
+            // Sequelize devuelve [numFilasActualizadas]
+            const [updated] = await patientService.updatePatient(id, patientData);
 
-            if (result.affectedRows === 0) {
+            if (updated === 0) {
                 return res.status(404).json(
                     Respuesta.error(null, `Paciente con id ${id} no encontrado`)
                 );
@@ -112,10 +103,11 @@ class PatientController {
 
             return res.json(
                 Respuesta.exito(
-                    result,
+                    null,
                     'Paciente actualizado correctamente'
                 )
             );
+
         } catch (err) {
             return res.status(500).json(
                 Respuesta.error(
@@ -131,21 +123,17 @@ class PatientController {
         const id = req.params.id;
 
         try {
-            // Eliminar paciente
-            const result = await patientService.deletePatient(id);
+            // Sequelize devuelve un número simple
+            const deleted = await patientService.deletePatient(id);
 
-            if (result.affectedRows === 0) {
+            if (deleted === 0) {
                 return res.status(404).json(
                     Respuesta.error(null, `Paciente con id ${id} no encontrado`)
                 );
             }
 
-            return res.json(
-                Respuesta.exito(
-                    result,
-                    'Paciente eliminado correctamente'
-                )
-            );
+            return res.status(204).end();
+
         } catch (err) {
             return res.status(500).json(
                 Respuesta.error(

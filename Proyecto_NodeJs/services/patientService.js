@@ -1,61 +1,45 @@
-// pacienteService.js
-const patientModel = require('../models/patientModel');
-const { logMensaje } = require('../utils/logger');
+const { Op } = require("sequelize");
+const initModels = require("../models/init-models.js").initModels;
+const sequelize = require("../config/sequelize.js");
+const models = initModels(sequelize);
+
+const Patient = models.patient;
+const Doctor = models.doctor;
 
 class PatientService {
-
     async getAllPatients() {
-        try {
-            const data = await patientModel.getAllPatients();
-            return data;
-        } catch (err) {
-            throw err;
-        }
+        return await Patient.findAll();
     }
 
     async getPatientById(id) {
-        try {
-            const data = await patientModel.getPatientById(id);
-            return data;
-        } catch (err) {
-            throw err;
-        }
+        return await Patient.findByPk(id);
     }
 
     async getPatientByIdRelations(id) {
-        try {
-            const data = await patientModel.getPatientByIdRelations(id);
-            return data;
-        } catch (err) {
-            throw err;
-        }
+        return await Patient.findByPk(id, {
+            include: [
+                {
+                    model: Doctor,
+                    as: "doctor",
+                },
+            ],
+        });
     }
 
     async createPatient(patientData) {
-        try {
-            const data = await patientModel.createPatient(patientData);
-            return data;
-        } catch (err) {
-            throw err;
-        }
+        return await Patient.create(patientData);
     }
 
     async updatePatient(id, patientData) {
-        try {
-            const data = await patientModel.updatePatient(id, patientData);
-            return data;
-        } catch (err) {
-            throw err;
-        }
+        return await Patient.update(patientData, {
+            where: { id: id },
+        });
     }
 
-    async deletePatient(patientId) {
-        try {
-            const data = await patientModel.deletePatient(patientId);
-            return data;
-        } catch (err) {
-            throw err;
-        }
+    async deletePatient(id) {
+        return await Patient.destroy({
+            where: { id: id },
+        });
     }
 }
 

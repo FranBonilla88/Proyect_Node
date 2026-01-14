@@ -1,66 +1,48 @@
-// doctorService.js (refactorizado a async/await)
-const doctorModel = require('../models/doctorModel');
-const { logMensaje } = require('../utils/logger');
+const { Op } = require("sequelize");
+const initModels = require("../models/init-models.js").initModels;
+const sequelize = require("../config/sequelize.js");
+const models = initModels(sequelize);
+
+const Doctor = models.doctor;
+const Patient = models.patient;
 
 class DoctorService {
-
-    // Listado completo o reducido de doctores
-    // (id, name, surname, specialty)
     async getAllDoctors() {
-        try {
-            const data = await doctorModel.getAllDoctors();
-            return data;
-        } catch (err) {
-            throw err;
-        }
+        return await Doctor.findAll();
     }
 
-    // Listado reducido de médicos (id, nombre, especialidad)
     async getAllDoctorListSimple() {
-        try {
-            const data = await doctorModel.getAllDoctorListSimple();
-            return data;
-        } catch (err) {
-            throw err;
-        }
+        return await Doctor.findAll({
+            attributes: ["id", "name", "surname", "specialty"],
+        });
     }
 
     async getDoctorByIdRelations(id) {
-        try {
-            const data = await doctorModel.getDoctorByIdRelations(id);
-            return data;
-        } catch (err) {
-            throw err;
-        }
+        return await Doctor.findByPk(id, {
+            include: [
+                {
+                    model: Patient,
+                    as: "patients",
+                },
+            ],
+        });
     }
 
     async createDoctor(doctorData) {
-        try {
-            const result = await doctorModel.createDoctor(doctorData);
-            return result;
-        } catch (err) {
-            throw err;
-        }
+        return await Doctor.create(doctorData);
     }
 
     async updateDoctor(id, doctorData) {
-        try {
-            const result = await doctorModel.updateDoctor(id, doctorData);
-            return result;
-        } catch (err) {
-            throw err;
-        }
+        return await Doctor.update(doctorData, {
+            where: { id: id },
+        });
     }
 
-    async deleteDoctor(doctorId) {
-        try {
-            const result = await doctorModel.deleteDoctor(doctorId);
-            return result;
-        } catch (err) {
-            throw err;
-        }
+    async deleteDoctor(id) {
+        return await Doctor.destroy({
+            where: { id: id },
+        });
     }
-
 }
 
 module.exports = new DoctorService();

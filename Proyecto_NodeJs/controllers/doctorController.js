@@ -10,13 +10,13 @@ class DoctorController {
 
         try {
             if (listado) {
-                // Devuelve un listado simple (por ejemplo para selects)
+                // Listado simple (por ejemplo para selects)
                 const data = await doctorService.getAllDoctorListSimple();
                 return res.json(
                     Respuesta.exito(data, 'Listado de médicos recuperado')
                 );
             } else {
-                // Devuelve todos los datos del médico
+                // Todos los datos del médico
                 const data = await doctorService.getAllDoctors();
                 return res.json(
                     Respuesta.exito(data, 'Datos de médicos recuperados')
@@ -33,40 +33,37 @@ class DoctorController {
     }
 
     // GET /medicos/:id
-    // GET /medicos/:id?relations=true
     async getDoctorById(req, res) {
         const { relations } = req.query;
         const doctorId = req.params.id;
 
         try {
+            let doctor;
+
             if (relations) {
                 // Médico + pacientes
-                const doctor = await doctorService.getDoctorByIdRelations(doctorId);
-
-                if (!doctor) {
-                    logMensaje('Médico no encontrado: ' + doctorId);
-                    return res.status(404).json(
-                        Respuesta.error(null, 'Médico no encontrado: ' + doctorId)
-                    );
-                }
-
-                return res.json(
-                    Respuesta.exito(doctor, 'Médico recuperado con pacientes')
-                );
+                doctor = await doctorService.getDoctorByIdRelations(doctorId);
             } else {
                 // Solo médico
-                const doctor = await doctorService.getDoctorById(doctorId);
+                doctor = await doctorService.getDoctorById(doctorId);
+            }
 
-                if (!doctor) {
-                    return res.status(404).json(
-                        Respuesta.error(null, 'Médico no encontrado: ' + doctorId)
-                    );
-                }
-
-                return res.json(
-                    Respuesta.exito(doctor, 'Médico recuperado')
+            if (!doctor) {
+                logMensaje('Médico no encontrado: ' + doctorId);
+                return res.status(404).json(
+                    Respuesta.error(null, 'Médico no encontrado: ' + doctorId)
                 );
             }
+
+            return res.json(
+                Respuesta.exito(
+                    doctor,
+                    relations
+                        ? 'Médico recuperado con pacientes'
+                        : 'Médico recuperado'
+                )
+            );
+
         } catch (err) {
             return res.status(500).json(
                 Respuesta.error(
@@ -82,11 +79,12 @@ class DoctorController {
         const doctorData = req.body;
 
         try {
-            const result = await doctorService.createDoctor(doctorData);
+            // Sequelize devuelve el objeto creado
+            const doctor = await doctorService.createDoctor(doctorData);
 
             return res.status(201).json(
                 Respuesta.exito(
-                    { insertId: result.insertId },
+                    doctor,
                     'Médico creado correctamente'
                 )
             );
@@ -106,17 +104,19 @@ class DoctorController {
         const doctorData = req.body;
 
         try {
-            const result = await doctorService.updateDoctor(id, doctorData);
+            // Sequelize devuelve [numFilasActualizadas]
+            const [updated] = await doctorService.updateDoctor(id, doctorData);
 
-            if (!result || result.affectedRows === 0) {
+            if (updated === 0) {
                 return res.status(404).json(
                     Respuesta.error(null, `Médico con id ${id} no encontrado`)
                 );
             }
 
             return res.json(
-                Respuesta.exito(result, 'Médico actualizado correctamente')
+                Respuesta.exito(null, 'Médico actualizado correctamente')
             );
+
         } catch (err) {
             return res.status(500).json(
                 Respuesta.error(err, 'Error al actualizar el médico')
@@ -129,9 +129,10 @@ class DoctorController {
         const doctorId = req.params.id;
 
         try {
-            const result = await doctorService.deleteDoctor(doctorId);
+            // Sequelize devuelve un número simple
+            const deleted = await doctorService.deleteDoctor(doctorId);
 
-            if (!result || result.affectedRows === 0) {
+            if (deleted === 0) {
                 return res.status(404).json(
                     Respuesta.error(
                         null,
@@ -140,7 +141,6 @@ class DoctorController {
                 );
             }
 
-            // Eliminado correctamente, sin contenido
             return res.status(204).end();
 
         } catch (err) {

@@ -3,27 +3,22 @@
 ############################################
 
 ### GET /api/patients — Recupera todos los pacientes
-# Ejemplo: Obtiene el listado completo de pacientes con todos sus campos
 GET http://localhost:3000/api/patients
 
 
 ### GET /api/patients/:id — Recupera un paciente por ID
-# Ejemplo: Obtiene un paciente concreto por su ID
 GET http://localhost:3000/api/patients/1
 
 
 ### GET /api/patients/:id — NOT FOUND (404)
-# Ejemplo: Prueba de error cuando el paciente no existe
 GET http://localhost:3000/api/patients/999
 
 
 ### GET /api/patients/:id?relations=true — Paciente + su médico (N:1)
-# Ejemplo: Recupera un paciente junto con la información del médico asignado
 GET http://localhost:3000/api/patients/1?relations=true
 
 
 ### POST /api/patients — Crear un paciente
-# Ejemplo: Inserta un nuevo paciente en la base de datos
 POST http://localhost:3000/api/patients
 Content-Type: application/json
 
@@ -38,7 +33,6 @@ Content-Type: application/json
 
 
 ### POST /api/patients — Ejemplo 2
-# Ejemplo: Inserta otro paciente con datos diferentes
 POST http://localhost:3000/api/patients
 Content-Type: application/json
 
@@ -53,7 +47,6 @@ Content-Type: application/json
 
 
 ### PUT /api/patients/:id — Actualizar un paciente
-# Ejemplo: Actualiza los datos del paciente con ID 1
 PUT http://localhost:3000/api/patients/1
 Content-Type: application/json
 
@@ -68,7 +61,6 @@ Content-Type: application/json
 
 
 ### PUT /api/patients/:id — NOT FOUND (404)
-# Ejemplo: Prueba de actualización fallida porque el paciente no existe
 PUT http://localhost:3000/api/patients/999
 Content-Type: application/json
 
@@ -83,10 +75,8 @@ Content-Type: application/json
 
 
 ### DELETE /api/patients/:id — Eliminar un paciente
-# Ejemplo: Elimina el paciente con ID 1
 DELETE http://localhost:3000/api/patients/1
 
 
 ### DELETE /api/patients/:id — NOT FOUND (404)
-# Ejemplo: Prueba de eliminación fallida porque el paciente no existe
 DELETE http://localhost:3000/api/patients/999

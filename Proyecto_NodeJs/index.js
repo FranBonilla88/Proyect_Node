@@ -3,6 +3,7 @@
 // ============================================
 const express = require('express');
 const cors = require('cors');
+const { logMensaje } = require('./utils/logger');
 
 // Rutas
 const doctorRoutes = require('./routes/doctorRoutes');
@@ -25,6 +26,7 @@ app.use(cors());
 // ============================================
 app.use('/api/doctors', doctorRoutes);
 app.use('/api/patients', patientRoutes);
+
 // RUTAS RAIZ (opcional)
 app.get('/', (req, res) => {
     res.send('API REST funcionando correctamente');
