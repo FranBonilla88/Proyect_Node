@@ -197,6 +197,63 @@ class DoctorController {
             );
         }
     }
+
+    // GET /doctors/search-age?minAge=30&maxAge=50
+    async getDoctorsByAgeRange(req, res) {
+        const { minAge, maxAge } = req.query;
+
+        try {
+            // Validación: ambos parámetros deben existir
+            if (!minAge || !maxAge) {
+                return res.status(400).json(
+                    Respuesta.error(
+                        null,
+                        'Debe indicar minAge y maxAge para realizar la búsqueda'
+                    )
+                );
+            }
+
+            // Validación: deben ser números
+            if (isNaN(minAge) || isNaN(maxAge)) {
+                return res.status(400).json(
+                    Respuesta.error(
+                        null,
+                        'Los valores de minAge y maxAge deben ser numéricos'
+                    )
+                );
+            }
+
+            // Llamada al servicio
+            const data = await doctorService.getDoctorsByAgeRange(minAge, maxAge);
+
+            // Si no hay resultados
+            if (!data || data.length === 0) {
+                return res.status(404).json(
+                    Respuesta.error(
+                        null,
+                        `No se encontraron médicos entre ${minAge} y ${maxAge} años`
+                    )
+                );
+            }
+
+            // Respuesta correcta
+            return res.json(
+                Respuesta.exito(
+                    data,
+                    `Médicos entre ${minAge} y ${maxAge} años recuperados correctamente`
+                )
+            );
+
+        } catch (err) {
+            console.error("ERROR en getDoctorsByAgeRange:", err);
+            return res.status(500).json(
+                Respuesta.error(
+                    err,
+                    'Error al buscar médicos por rango de edad: ' + req.originalUrl
+                )
+            );
+        }
+    }
 }
 
 module.exports = new DoctorController();

@@ -32,6 +32,17 @@ class DoctorService {
         });
     }
 
+    async getDoctorsByAgeRange(minAge, maxAge) {
+        return await Doctor.findAll({
+            where: {
+                age: {
+                    [Op.between]: [minAge, maxAge]
+                }
+            },
+            attributes: ["id", "name", "surname", "age", "specialty", "email", "phone"]
+        });
+    }
+
     async createDoctor(doctorData) {
         return await Doctor.create(doctorData);
     }

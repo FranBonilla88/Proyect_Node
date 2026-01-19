@@ -5,6 +5,7 @@ const doctorController = require('../controllers/doctorController');
 
 // PRIMERO LAS RUTAS ESPECÍFICAS
 router.get('/search', doctorController.getDoctorsBySpecialty);
+router.get('/search-age', doctorController.getDoctorsByAgeRange);
 
 // LUEGO LAS GENERALES
 router.get('/', doctorController.getAllDoctors);
@@ -13,4 +14,4 @@ router.post('/', doctorController.createDoctor);
 router.put('/:id', doctorController.updateDoctor);
 router.delete('/:id', doctorController.deleteDoctor);
 
-module.exports = router;
+module.exports = router; 

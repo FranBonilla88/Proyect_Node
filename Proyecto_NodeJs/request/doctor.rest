@@ -8,7 +8,7 @@ GET http://localhost:3000/api/doctors
 
 ### GET /api/doctors?listado=true — Listado reducido (id, name, specialty)
 GET http://localhost:3000/api/doctors?listado=true
-
+  
 
 ### GET /api/doctors/:id — Recupera un doctor por ID
 GET http://localhost:3000/api/doctors/1
