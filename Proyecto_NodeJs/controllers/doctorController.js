@@ -65,6 +65,7 @@ class DoctorController {
             );
 
         } catch (err) {
+            console.error("ERROR en getDoctorById:", err);   // <-- AQUÍ
             return res.status(500).json(
                 Respuesta.error(
                     err,
@@ -118,8 +119,12 @@ class DoctorController {
             );
 
         } catch (err) {
+            console.error("ERROR en updateDoctor:", err); // <-- AÑADE ESTO
             return res.status(500).json(
-                Respuesta.error(err, 'Error al actualizar el médico')
+                Respuesta.error(
+                    err,
+                    'Error al recuperar el médico: ' + req.originalUrl
+                )
             );
         }
     }
@@ -146,6 +151,49 @@ class DoctorController {
         } catch (err) {
             return res.status(500).json(
                 Respuesta.error(err, 'Error interno del servidor')
+            );
+        }
+    }
+
+    // GET /doctors/search?specialty=Traumatología
+    async getDoctorsBySpecialty(req, res) {
+        console.log("Valor recibido en specialty:", req.query.specialty);
+        const { specialty } = req.query;
+
+        try {
+            if (!specialty) {
+                return res.status(400).json(
+                    Respuesta.error(
+                        null,
+                        'Debe indicar una especialidad para realizar la búsqueda'
+                    )
+                );
+            }
+
+            const data = await doctorService.findBySpecialty(specialty);
+
+            if (!data || data.length === 0) {
+                return res.status(404).json(
+                    Respuesta.error(
+                        null,
+                        `No se encontraron médicos con la especialidad: ${specialty}`
+                    )
+                );
+            }
+
+            return res.json(
+                Respuesta.exito(
+                    data,
+                    `Médicos con especialidad ${specialty} recuperados correctamente`
+                )
+            );
+
+        } catch (err) {
+            return res.status(500).json(
+                Respuesta.error(
+                    err,
+                    'Error al buscar médicos por especialidad: ' + req.originalUrl
+                )
             );
         }
     }

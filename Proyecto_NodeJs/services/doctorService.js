@@ -11,6 +11,10 @@ class DoctorService {
         return await Doctor.findAll();
     }
 
+    async getDoctorById(id) {
+        return await Doctor.findByPk(id);
+    }
+
     async getAllDoctorListSimple() {
         return await Doctor.findAll({
             attributes: ["id", "name", "surname", "specialty"],
@@ -41,6 +45,12 @@ class DoctorService {
     async deleteDoctor(id) {
         return await Doctor.destroy({
             where: { id: id },
+        });
+    }
+
+    async findBySpecialty(specialty) {
+        return await Doctor.findAll({
+            where: { specialty: specialty }
         });
     }
 }
