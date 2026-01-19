@@ -17,7 +17,7 @@ class DoctorService {
 
     async getAllDoctorListSimple() {
         return await Doctor.findAll({
-            attributes: ["id", "name", "surname", "specialty"],
+            attributes: ["id", "name", "age", "surname", "specialty"],
         });
     }
 
