@@ -11,7 +11,7 @@ router.get('/', patientController.getAllPatients);
 // GET /patients/:id  
 // - Paciente por ID
 // - Paciente + médico con ?relations=true
-router.get('/:id', patientController.getPatientById);
+router.get('/:id', patientController.getPatientById);   //Con ?relations=true
 
 // POST /patients
 router.post('/', patientController.createPatient);

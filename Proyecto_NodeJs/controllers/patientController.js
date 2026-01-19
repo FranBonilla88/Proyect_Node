@@ -92,21 +92,13 @@ class PatientController {
         const patientData = req.body;
 
         try {
-            // Sequelize devuelve [numFilasActualizadas]
-            const [updated] = await patientService.updatePatient(id, patientData);
+            const resultado = await patientService.updatePatient(id, patientData);
 
-            if (updated === 0) {
-                return res.status(404).json(
-                    Respuesta.error(null, `Paciente con id ${id} no encontrado`)
-                );
+            if (!resultado.ok) {
+                return res.status(404).json(resultado);
             }
 
-            return res.json(
-                Respuesta.exito(
-                    null,
-                    'Paciente actualizado correctamente'
-                )
-            );
+            return res.json(resultado);
 
         } catch (err) {
             return res.status(500).json(

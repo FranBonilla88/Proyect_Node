@@ -2,6 +2,7 @@ const { Op } = require("sequelize");
 const initModels = require("../models/init-models.js").initModels;
 const sequelize = require("../config/sequelize.js");
 const models = initModels(sequelize);
+const Respuesta = require("../utils/respuesta");
 
 const Doctor = models.doctor;
 const Patient = models.patient;
@@ -48,9 +49,16 @@ class DoctorService {
     }
 
     async updateDoctor(id, doctorData) {
-        return await Doctor.update(doctorData, {
-            where: { id: id },
-        });
+        const [filas] = await Doctor.update(doctorData, { where: { id } });
+
+        if (filas === 0) {
+            const existe = await Doctor.findByPk(id);
+
+            return existe
+                ? Respuesta.exito(null, "Médico editado correctamente (sin cambios)")
+                : Respuesta.error(null, `Médico con id ${id} no encontrado`);
+        }
+        return Respuesta.exito(null, "Médico editado correctamente");
     }
 
     async deleteDoctor(id) {
