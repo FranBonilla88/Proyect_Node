@@ -7,6 +7,8 @@ const patientController = require('../controllers/patientController');
 // - Todos los pacientes
 // - Listado reducido con ?listado=true
 router.get('/', patientController.getAllPatients);
+// SEARCH DATES
+router.get('/search-date', patientController.getPatientsByDateRange);
 
 // GET /patients/:id  
 // - Paciente por ID
@@ -21,5 +23,7 @@ router.put('/:id', patientController.updatePatient);
 
 // DELETE /patients/:id
 router.delete('/:id', patientController.deletePatient);
+
+
 
 module.exports = router;

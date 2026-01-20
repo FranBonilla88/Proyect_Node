@@ -12,6 +12,7 @@ CREATE TABLE `doctor` (
     `id` INT(4) NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(50) NOT NULL,
     `surname` VARCHAR(50) NOT NULL,
+    `edad` INT NOT NULL,
     `specialty` VARCHAR(50) NOT NULL,
     `email` VARCHAR(80) NOT NULL,
     `phone` VARCHAR(20) NOT NULL,
@@ -24,6 +25,7 @@ INSERT INTO
         `id`,
         `name`,
         `surname`,
+        `edad`,
         `specialty`,
         `email`,
         `phone`
@@ -33,6 +35,7 @@ VALUES
         1,
         'Francisco',
         'Talamino',
+        45,
         'Cardiology',
         'francisco.talamino@hospital.com',
         '600123123'
@@ -41,6 +44,7 @@ VALUES
         2,
         'Laura',
         'Sanchez',
+        38,
         'Pediatrics',
         'laura.sanchez@hospital.com',
         '600456456'
@@ -49,6 +53,7 @@ VALUES
         3,
         'Antonio',
         'Herrera',
+        50,
         'Dermatology',
         'antonio.herrera@hospital.com',
         '600789789'
@@ -57,6 +62,7 @@ VALUES
         4,
         'Elena',
         'Marquez',
+        42,
         'Neurology',
         'elena.marquez@hospital.com',
         '600987987'
@@ -65,9 +71,100 @@ VALUES
         5,
         'Javier',
         'Romero',
+        55,
         'General Medicine',
         'javier.romero@hospital.com',
         '600654654'
+    ),
+    (
+        6,
+        'Beatriz',
+        'Ortega',
+        47,
+        'Endocrinology',
+        'beatriz.ortega@hospital.com',
+        '600111222'
+    ),
+    (
+        7,
+        'Miguel',
+        'Castro',
+        39,
+        'Traumatology',
+        'miguel.castro@hospital.com',
+        '600222333'
+    ),
+    (
+        8,
+        'Sara',
+        'Vega',
+        34,
+        'Gastroenterology',
+        'sara.vega@hospital.com',
+        '600333444'
+    ),
+    (
+        9,
+        'Roberto',
+        'Navas',
+        52,
+        'Psychiatry',
+        'roberto.navas@hospital.com',
+        '600444555'
+    ),
+    (
+        10,
+        'Patricia',
+        'Lorenzo',
+        41,
+        'Ophthalmology',
+        'patricia.lorenzo@hospital.com',
+        '600555666'
+    ),
+    (
+        11,
+        'Hector',
+        'Molina',
+        49,
+        'Urology',
+        'hector.molina@hospital.com',
+        '600666777'
+    ),
+    (
+        12,
+        'Claudia',
+        'Reyes',
+        36,
+        'Allergology',
+        'claudia.reyes@hospital.com',
+        '600777888'
+    ),
+    (
+        13,
+        'Ignacio',
+        'Paredes',
+        58,
+        'Rheumatology',
+        'ignacio.paredes@hospital.com',
+        '600888999'
+    ),
+    (
+        14,
+        'Natalia',
+        'Fuentes',
+        33,
+        'Hematology',
+        'natalia.fuentes@hospital.com',
+        '600999111'
+    ),
+    (
+        15,
+        'Alberto',
+        'Santos',
+        45,
+        'Nephrology',
+        'alberto.santos@hospital.com',
+        '600112233'
     );
 
 -- --------------------------------------------------------
@@ -218,4 +315,229 @@ VALUES
         'daniel.pardo@mail.com',
         '644555666',
         5
+    ),
+    (
+        14,
+        'Julia',
+        'Morales',
+        '1992-04-11',
+        'julia.morales@mail.com',
+        '611000001',
+        6
+    ),
+    (
+        15,
+        'Adrian',
+        'Soto',
+        '1987-09-23',
+        'adrian.soto@mail.com',
+        '611000002',
+        7
+    ),
+    (
+        16,
+        'Elena',
+        'Vidal',
+        '2003-12-14',
+        'elena.vidal@mail.com',
+        '611000003',
+        8
+    ),
+    (
+        17,
+        'Ruben',
+        'Gallardo',
+        '1975-01-30',
+        'ruben.gallardo@mail.com',
+        '611000004',
+        9
+    ),
+    (
+        18,
+        'Paula',
+        'Benitez',
+        '1998-06-07',
+        'paula.benitez@mail.com',
+        '611000005',
+        10
+    ),
+    (
+        19,
+        'Victor',
+        'Cano',
+        '1983-03-19',
+        'victor.cano@mail.com',
+        '611000006',
+        11
+    ),
+    (
+        20,
+        'Irene',
+        'Salas',
+        '1991-10-02',
+        'irene.salas@mail.com',
+        '611000007',
+        12
+    ),
+    (
+        21,
+        'Jorge',
+        'Del Rio',
+        '1979-07-25',
+        'jorge.delrio@mail.com',
+        '611000008',
+        13
+    ),
+    (
+        22,
+        'Cristina',
+        'Aranda',
+        '2005-05-18',
+        'cristina.aranda@mail.com',
+        '611000009',
+        14
+    ),
+    (
+        23,
+        'Samuel',
+        'Prieto',
+        '1996-11-09',
+        'samuel.prieto@mail.com',
+        '611000010',
+        15
+    ),
+    (
+        24,
+        'Noelia',
+        'Crespo',
+        '1984-02-12',
+        'noelia.crespo@mail.com',
+        '611000011',
+        6
+    ),
+    (
+        25,
+        'Hector',
+        'Lara',
+        '1993-08-04',
+        'hector.lara@mail.com',
+        '611000012',
+        7
+    ),
+    (
+        26,
+        'Eva',
+        'Montoro',
+        '2000-09-27',
+        'eva.montoro@mail.com',
+        '611000013',
+        8
+    ),
+    (
+        27,
+        'Sergio',
+        'Pascual',
+        '1981-04-15',
+        'sergio.pascual@mail.com',
+        '611000014',
+        9
+    ),
+    (
+        28,
+        'Laura',
+        'Requena',
+        '1994-01-06',
+        'laura.requena@mail.com',
+        '611000015',
+        10
+    ),
+    (
+        29,
+        'Gonzalo',
+        'Herrero',
+        '1977-03-29',
+        'gonzalo.herrero@mail.com',
+        '611000016',
+        11
+    ),
+    (
+        30,
+        'Patricia',
+        'Nuñez',
+        '1989-12-21',
+        'patricia.nunez@mail.com',
+        '611000017',
+        12
+    ),
+    (
+        31,
+        'Oscar',
+        'Marin',
+        '1997-07-08',
+        'oscar.marin@mail.com',
+        '611000018',
+        13
+    ),
+    (
+        32,
+        'Silvia',
+        'Carmona',
+        '2002-10-30',
+        'silvia.carmona@mail.com',
+        '611000019',
+        14
+    ),
+    (
+        33,
+        'Marcos',
+        'Delgado',
+        '1990-05-03',
+        'marcos.delgado@mail.com',
+        '611000020',
+        15
+    ),
+    (
+        34,
+        'Nerea',
+        'Campos',
+        '1986-06-11',
+        'nerea.campos@mail.com',
+        '611000021',
+        6
+    ),
+    (
+        35,
+        'Luis',
+        'Barrios',
+        '1974-09-17',
+        'luis.barrios@mail.com',
+        '611000022',
+        7
+    ),
+    (
+        36,
+        'Raquel',
+        'Santos',
+        '1993-02-08',
+        'raquel.santos@mail.com',
+        '611000023',
+        8
+    ),
+    (
+        37,
+        'Daniela',
+        'Lozano',
+        '2004-11-26',
+        'daniela.lozano@mail.com',
+        '611000024',
+        9
+    ),
+    (
+        38,
+        'Mateo',
+        'Paredes',
+        '1999-01-19',
+        'mateo.paredes@mail.com',
+        '611000025',
+        10
     );

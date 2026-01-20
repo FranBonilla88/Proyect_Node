@@ -80,3 +80,9 @@ DELETE http://localhost:3000/api/doctors/1
 
 ### DELETE /api/doctors/:id — NOT FOUND (404)
 DELETE http://localhost:3000/api/doctors/999
+
+### GET /api/doctors?specialty=Cardiology — Buscar médicos por especialidad
+GET http://localhost:3000/api/doctors?specialty=Cardiology
+
+### GET /api/doctors?minEdad=40&maxEdad=50 — Médicos entre 40 y 50 años
+GET http://localhost:3000/api/doctors?minEdad=40&maxEdad=50

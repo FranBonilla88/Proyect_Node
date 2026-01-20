@@ -7,10 +7,18 @@ class PatientController {
     // GET /patients
     async getAllPatients(req, res) {
         try {
-            const data = await patientService.getAllPatients();
+            const page = parseInt(req.query.page) || 1;
+            const limit = parseInt(req.query.limit) || 10;
+
+            const data = await patientService.getAllPatientsPaginated(page, limit);
+
             return res.json(
-                Respuesta.exito(data, 'Listado de pacientes recuperado')
+                Respuesta.exito(
+                    data,
+                    `Listado de pacientes recuperado (página ${page})`
+                )
             );
+
         } catch (err) {
             return res.status(500).json(
                 Respuesta.error(
@@ -132,6 +140,38 @@ class PatientController {
                     err,
                     'Error al eliminar el paciente'
                 )
+            );
+        }
+    }
+
+    async getPatientsByDateRange(req, res) {
+        const { startDate, endDate } = req.query;
+
+        try {
+            if (!startDate || !endDate) {
+                return res.status(400).json(
+                    Respuesta.error(null, "Debe indicar startDate y endDate")
+                );
+            }
+
+            const data = await patientService.getPatientsByDateRange(startDate, endDate);
+
+            if (!data || data.length === 0) {
+                return res.status(404).json(
+                    Respuesta.error(null, `No se encontraron pacientes entre ${startDate} y ${endDate}`)
+                );
+            }
+
+            return res.json(
+                Respuesta.exito(
+                    data,
+                    `Pacientes entre ${startDate} y ${endDate} recuperados correctamente`
+                )
+            );
+
+        } catch (err) {
+            return res.status(500).json(
+                Respuesta.error(err, "Error al buscar pacientes por rango de fechas")
             );
         }
     }

@@ -55,6 +55,42 @@ class PatientService {
             where: { id: id },
         });
     }
+
+    async getPatientsByDateRange(startDate, endDate) {
+        return await Patient.findAll({
+            where: {
+                birth_date: {
+                    [Op.between]: [startDate, endDate]
+                }
+            },
+            include: {
+                model: Doctor,
+                as: "doctor",
+                attributes: ["name"]
+            }
+        });
+    }
+
+    async getAllPatientsPaginated(page = 1, limit = 10) {
+        const offset = (page - 1) * limit;
+
+        const { rows, count } = await Patient.findAndCountAll({
+            limit,
+            offset,
+            include: {
+                model: Doctor,
+                as: "doctor",
+                attributes: ["name"]
+            },
+            order: [["id", "ASC"]]
+        });
+
+        return {
+            pacientes: rows,
+            total: count,
+            totalPaginas: Math.ceil(count / limit)
+        };
+    }
 }
 
 module.exports = new PatientService();
