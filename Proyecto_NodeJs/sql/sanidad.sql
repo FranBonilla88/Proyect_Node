@@ -19,9 +19,7 @@ CREATE TABLE `doctor` (
     `salary` FLOAT NOT NULL,
     `active` BOOLEAN NOT NULL DEFAULT TRUE,
     PRIMARY KEY (`id`)
-);
-
-ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 -- Sample data
 INSERT INTO
