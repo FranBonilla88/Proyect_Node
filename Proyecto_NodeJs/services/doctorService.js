@@ -40,7 +40,17 @@ class DoctorService {
                     [Op.between]: [minAge, maxAge]
                 }
             },
-            attributes: ["id", "name", "surname", "age", "specialty", "email", "phone"]
+            attributes: [
+                "id",
+                "name",
+                "surname",
+                "age",
+                "specialty",
+                "email",
+                "phone",
+                "salary",
+                "active"
+            ]
         });
     }
 
