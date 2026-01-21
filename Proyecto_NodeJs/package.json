@@ -1,15 +1,15 @@
 {
-  "name": "backend_cine",
+  "name": "backend_sanidad",
   "version": "1.0.0",
-  "description": "Backend api rest para proyecto sobre una bd de cine",
+  "description": "Backend API REST para la gestión de médicos y pacientes",
+  "author": "Francisco Javier Bonilla Varo",
   "license": "ISC",
-  "author": "Carlos Rodríguez",
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "echo 'Error: no test specified' && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "cookie-parser": "^1.4.7",
