@@ -12,23 +12,29 @@ CREATE TABLE `doctor` (
     `id` INT(4) NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(50) NOT NULL,
     `surname` VARCHAR(50) NOT NULL,
-    `edad` INT NOT NULL,
+    `age` INT NOT NULL,
     `specialty` VARCHAR(50) NOT NULL,
     `email` VARCHAR(80) NOT NULL,
     `phone` VARCHAR(20) NOT NULL,
+    `salary` FLOAT NOT NULL,
+    `active` BOOLEAN NOT NULL DEFAULT TRUE,
     PRIMARY KEY (`id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+);
+
+ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 -- Sample data
 INSERT INTO
     `doctor` (
-        `id`,
-        `name`,
-        `surname`,
-        `edad`,
-        `specialty`,
-        `email`,
-        `phone`
+        id,
+        name,
+        surname,
+        age,
+        specialty,
+        email,
+        phone,
+        salary,
+        active
     )
 VALUES
     (
@@ -38,7 +44,9 @@ VALUES
         45,
         'Cardiology',
         'francisco.talamino@hospital.com',
-        '600123123'
+        '600123123',
+        4200.50,
+        TRUE
     ),
     (
         2,
@@ -47,7 +55,9 @@ VALUES
         38,
         'Pediatrics',
         'laura.sanchez@hospital.com',
-        '600456456'
+        '600456456',
+        3900.00,
+        TRUE
     ),
     (
         3,
@@ -56,7 +66,9 @@ VALUES
         50,
         'Dermatology',
         'antonio.herrera@hospital.com',
-        '600789789'
+        '600789789',
+        4100.75,
+        TRUE
     ),
     (
         4,
@@ -65,7 +77,9 @@ VALUES
         42,
         'Neurology',
         'elena.marquez@hospital.com',
-        '600987987'
+        '600987987',
+        4300.00,
+        TRUE
     ),
     (
         5,
@@ -74,97 +88,119 @@ VALUES
         55,
         'General Medicine',
         'javier.romero@hospital.com',
-        '600654654'
+        '600654654',
+        3700.25,
+        TRUE
     ),
     (
         6,
-        'Beatriz',
-        'Ortega',
-        47,
-        'Endocrinology',
-        'beatriz.ortega@hospital.com',
-        '600111222'
+        'Marta',
+        'Lopez',
+        40,
+        'Oncology',
+        'marta.lopez@hospital.com',
+        '600111222',
+        4500.00,
+        TRUE
     ),
     (
         7,
-        'Miguel',
-        'Castro',
-        39,
+        'Carlos',
+        'Navarro',
+        47,
         'Traumatology',
-        'miguel.castro@hospital.com',
-        '600222333'
+        'carlos.navarro@hospital.com',
+        '600222333',
+        4150.50,
+        TRUE
     ),
     (
         8,
-        'Sara',
-        'Vega',
-        34,
-        'Gastroenterology',
-        'sara.vega@hospital.com',
-        '600333444'
+        'Isabel',
+        'Ruiz',
+        36,
+        'Gynecology',
+        'isabel.ruiz@hospital.com',
+        '600333444',
+        3950.75,
+        TRUE
     ),
     (
         9,
-        'Roberto',
-        'Navas',
+        'Sergio',
+        'Castro',
         52,
-        'Psychiatry',
-        'roberto.navas@hospital.com',
-        '600444555'
+        'Endocrinology',
+        'sergio.castro@hospital.com',
+        '600444555',
+        4250.00,
+        TRUE
     ),
     (
         10,
         'Patricia',
-        'Lorenzo',
+        'Vega',
         41,
         'Ophthalmology',
-        'patricia.lorenzo@hospital.com',
-        '600555666'
+        'patricia.vega@hospital.com',
+        '600555666',
+        4050.25,
+        TRUE
     ),
     (
         11,
-        'Hector',
-        'Molina',
-        49,
+        'Ricardo',
+        'Benitez',
+        48,
         'Urology',
-        'hector.molina@hospital.com',
-        '600666777'
+        'ricardo.benitez@hospital.com',
+        '600666777',
+        4125.00,
+        TRUE
     ),
     (
         12,
-        'Claudia',
-        'Reyes',
-        36,
-        'Allergology',
-        'claudia.reyes@hospital.com',
-        '600777888'
+        'Natalia',
+        'Campos',
+        34,
+        'Psychiatry',
+        'natalia.campos@hospital.com',
+        '600777888',
+        3850.00,
+        TRUE
     ),
     (
         13,
-        'Ignacio',
-        'Paredes',
-        58,
-        'Rheumatology',
-        'ignacio.paredes@hospital.com',
-        '600888999'
+        'Hector',
+        'Salas',
+        53,
+        'Gastroenterology',
+        'hector.salas@hospital.com',
+        '600888999',
+        4400.50,
+        TRUE
     ),
     (
         14,
-        'Natalia',
-        'Fuentes',
-        33,
-        'Hematology',
-        'natalia.fuentes@hospital.com',
-        '600999111'
+        'Beatriz',
+        'Ortega',
+        39,
+        'Rheumatology',
+        'beatriz.ortega@hospital.com',
+        '600999000',
+        3980.75,
+        TRUE
     ),
     (
         15,
-        'Alberto',
-        'Santos',
-        45,
-        'Nephrology',
-        'alberto.santos@hospital.com',
-        '600112233'
+        'Manuel',
+        'Delgado',
+        46,
+        'Pulmonology',
+        'manuel.delgado@hospital.com',
+        '600112233',
+        4180.00,
+        TRUE
     );
 
 -- --------------------------------------------------------

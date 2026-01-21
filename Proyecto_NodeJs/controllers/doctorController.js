@@ -7,7 +7,6 @@ class DoctorController {
     // GET /medicos
     async getAllDoctors(req, res) {
         const { listado } = req.query;
-
         try {
             if (listado) {
                 // Listado simple (por ejemplo para selects)
@@ -23,6 +22,7 @@ class DoctorController {
                 );
             }
         } catch (err) {
+            console.error("ERROR en getAllDoctors:", err);
             return res.status(500).json(
                 Respuesta.error(
                     err,
@@ -151,7 +151,6 @@ class DoctorController {
 
     // GET /doctors/search?specialty=Traumatología
     async getDoctorsBySpecialty(req, res) {
-        console.log("Valor recibido en specialty:", req.query.specialty);
         const { specialty } = req.query;
 
         try {

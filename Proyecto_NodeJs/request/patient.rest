@@ -1,25 +1,25 @@
 ############################################
-### PACIENTES — API SANIDAD
+### PACIENTES — API SANIDAD (PUERTO 3001)
 ############################################
 
-### GET /api/patients — Recupera todos los pacientes
-GET http://localhost:3000/api/patients
+### GET /api/patients — Recupera todos los pacientes (paginado)
+GET http://localhost:3001/api/patients
 
 
 ### GET /api/patients/:id — Recupera un paciente por ID
-GET http://localhost:3000/api/patients/1
+GET http://localhost:3001/api/patients/1
 
 
 ### GET /api/patients/:id — NOT FOUND (404)
-GET http://localhost:3000/api/patients/999
+GET http://localhost:3001/api/patients/999
 
 
 ### GET /api/patients/:id?relations=true — Paciente + su médico (N:1)
-GET http://localhost:3000/api/patients/1?relations=true
+GET http://localhost:3001/api/patients/1?relations=true
 
 
 ### POST /api/patients — Crear un paciente
-POST http://localhost:3000/api/patients
+POST http://localhost:3001/api/patients
 Content-Type: application/json
 
 {
@@ -33,7 +33,7 @@ Content-Type: application/json
 
 
 ### POST /api/patients — Ejemplo 2
-POST http://localhost:3000/api/patients
+POST http://localhost:3001/api/patients
 Content-Type: application/json
 
 {
@@ -47,7 +47,7 @@ Content-Type: application/json
 
 
 ### PUT /api/patients/:id — Actualizar un paciente
-PUT http://localhost:3000/api/patients/1
+PUT http://localhost:3001/api/patients/1
 Content-Type: application/json
 
 {
@@ -61,7 +61,7 @@ Content-Type: application/json
 
 
 ### PUT /api/patients/:id — NOT FOUND (404)
-PUT http://localhost:3000/api/patients/999
+PUT http://localhost:3001/api/patients/999
 Content-Type: application/json
 
 {
@@ -75,11 +75,12 @@ Content-Type: application/json
 
 
 ### DELETE /api/patients/:id — Eliminar un paciente
-DELETE http://localhost:3000/api/patients/1
+DELETE http://localhost:3001/api/patients/1
 
 
 ### DELETE /api/patients/:id — NOT FOUND (404)
-DELETE http://localhost:3000/api/patients/999
+DELETE http://localhost:3001/api/patients/999
+
 
 ### GET /api/patients?startDate=1980-01-01&endDate=1990-12-31 — Pacientes nacidos entre 1980 y 1990
-GET http://localhost:3000/api/patients?startDate=1980-01-01&endDate=1990-12-31
+GET http://localhost:3001/api/patients?startDate=1980-01-01&endDate=1990-12-31

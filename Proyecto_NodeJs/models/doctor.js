@@ -31,6 +31,14 @@ module.exports = function (sequelize, DataTypes) {
             phone: {
                 type: DataTypes.STRING(20),
                 allowNull: false,
+            },
+            salary: {
+                type: DataTypes.DECIMAL(10, 2),
+                allowNull: false,
+            },
+            active: {
+                type: DataTypes.BOOLEAN,
+                allowNull: false,
             }
         },
         {
