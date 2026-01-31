@@ -1,6 +1,12 @@
 -- Database: sanidad
 CREATE DATABASE IF NOT EXISTS `sanidad` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 
+CREATE USER IF NOT EXISTS 'sanidad_user' @'%' IDENTIFIED BY 'test';
+
+GRANT ALL PRIVILEGES ON sanidad.* TO 'sanidad_user' @'%';
+
+FLUSH PRIVILEGES;
+
 USE `sanidad`;
 
 -- --------------------------------------------------------
