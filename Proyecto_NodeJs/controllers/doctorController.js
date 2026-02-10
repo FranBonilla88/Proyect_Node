@@ -247,6 +247,30 @@ class DoctorController {
             );
         }
     }
+
+
+    // GET /doctors/graph
+    async getGraphData(req, res) {
+        try {
+            // Llamamos al servicio (asegúrate de haber creado esta función en doctorService)
+            const data = await doctorService.getDoctorsForGraph();
+
+            return res.json(
+                Respuesta.exito(
+                    data,
+                    'Datos de gráfica recuperados correctamente'
+                )
+            );
+        } catch (err) {
+            console.error("ERROR en getGraphData:", err);
+            return res.status(500).json(
+                Respuesta.error(
+                    err,
+                    'Error al recuperar datos para la gráfica: ' + req.originalUrl
+                )
+            );
+        }
+    }
 }
 
 module.exports = new DoctorController();

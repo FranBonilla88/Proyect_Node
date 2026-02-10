@@ -6,6 +6,7 @@ const doctorController = require('../controllers/doctorController');
 // PRIMERO LAS RUTAS ESPECÍFICAS
 router.get('/search', doctorController.getDoctorsBySpecialty);
 router.get('/search-age', doctorController.getDoctorsByAgeRange);
+router.get('/graph', doctorController.getGraphData);
 
 // LUEGO LAS GENERALES
 router.get('/', doctorController.getAllDoctors);
